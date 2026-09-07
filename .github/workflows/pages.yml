@@ -29,12 +29,15 @@ jobs:
         run: |
           npm test
           npm run build
+          python3 tools/build-manifest.py
       - name: Install browser test dependencies
         run: |
           python3 -m pip install playwright
           python3 -m playwright install --with-deps chromium
       - name: Validate editing and import/export workflows
-        run: python3 tests/browser_smoke.py --inline --software
+        run: |
+          rm -f tests/browser-results.json
+          python3 tests/browser_smoke.py --inline --software
       - name: Record validation summary
         if: always()
         run: |
@@ -47,6 +50,11 @@ jobs:
                   summary.write(f"Browser checks: {result['passed']}; backend: {result['backend']}.\n\n")
                   summary.write('Software-renderer validation does not certify hardware WebGPU execution.\n')
           PY
+      - name: Upload the validated Pages artifact
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3
+        with:
+          path: dist
 
   publish:
     if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
@@ -54,54 +62,39 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     permissions:
-      contents: write
+      contents: read
       pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
-          fetch-depth: 0
+          persist-credentials: false
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: '22'
-      - name: Rebuild the validated source revision
+      - name: Rebuild the validated source revision for integrity verification
         run: |
           npm run build
-          python3 - <<'PY'
-          import hashlib, json, os, pathlib
-          root = pathlib.Path('dist')
-          files = ['index.html', 'AlloyStudio.html']
-          result = {'sourceCommit': os.environ['GITHUB_SHA'], 'sha256': {name: hashlib.sha256((root/name).read_bytes()).hexdigest() for name in files}}
-          (root/'build-info.json').write_text(json.dumps(result, indent=2) + '\n')
-          PY
-      - name: Update gh-pages without rewriting history
-        id: branch
-        shell: bash
-        run: |
-          set -euo pipefail
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git fetch origin gh-pages
-          target="$RUNNER_TEMP/alloy-pages"
-          git worktree add --detach "$target" origin/gh-pages
-          rsync -a --delete --exclude='.git' --exclude='CNAME' dist/ "$target/"
-          git -C "$target" add --all
-          if ! git -C "$target" diff --cached --quiet; then
-            git -C "$target" commit -m "deploy: Alloy Studio from ${GITHUB_SHA}"
-            git -C "$target" push origin HEAD:gh-pages
-          fi
-          echo "commit=$(git -C "$target" rev-parse HEAD)" >> "$GITHUB_OUTPUT"
-      - name: Request Pages build and verify the public deployment
+          python3 tools/build-manifest.py
+      - name: Deploy the validated artifact to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4
+      - name: Verify the public HTTPS deployment
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PAGES_COMMIT: ${{ steps.branch.outputs.commit }}
+          PAGES_URL: ${{ steps.deployment.outputs.page_url }}
         run: python3 tools/verify-pages.py
       - name: Install live browser verification dependencies
         run: |
           python3 -m pip install playwright
           python3 -m playwright install --with-deps chromium
       - name: Exercise the published application over HTTPS
+        env:
+          PAGES_URL: ${{ steps.deployment.outputs.page_url }}
         run: |
-          python3 tests/browser_smoke.py --url 'https://wieslawsoltes.github.io/AlloyStudio/?renderer=webgl' --software
+          python3 tests/browser_smoke.py --url "${PAGES_URL}?renderer=webgl" --software
           python3 - <<'PY'
           import json, os, pathlib
           result = json.loads(pathlib.Path('tests/browser-results.json').read_text())
