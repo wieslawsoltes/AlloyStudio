@@ -1,0 +1,461 @@
+{
+  "format": "alloy-studio",
+  "version": 1,
+  "name": "Orbital bearing mount",
+  "units": "mm",
+  "parameters": {
+    "baseWidth": "160",
+    "baseDepth": "108",
+    "plate": "12",
+    "bore": "22",
+    "shaftRadius": "15",
+    "earSpacing": "64"
+  },
+  "features": [
+    {
+      "id": "base",
+      "type": "box",
+      "name": "Mounting plate",
+      "p": {
+        "width": "baseWidth",
+        "depth": "baseDepth",
+        "height": "plate",
+        "radius": 9
+      },
+      "material": "dark"
+    },
+    {
+      "id": "mount0",
+      "type": "hole",
+      "name": "Mounting hole 1",
+      "p": {
+        "radius": 4.5,
+        "depth": 14,
+        "z": -1,
+        "x": -64,
+        "y": -39,
+        "counterbore": 7.5,
+        "counterdepth": 5
+      },
+      "target": "base"
+    },
+    {
+      "id": "mount1",
+      "type": "hole",
+      "name": "Mounting hole 2",
+      "p": {
+        "radius": 4.5,
+        "depth": 14,
+        "z": -1,
+        "x": 64,
+        "y": -39,
+        "counterbore": 7.5,
+        "counterdepth": 5
+      },
+      "target": "mount0"
+    },
+    {
+      "id": "mount2",
+      "type": "hole",
+      "name": "Mounting hole 3",
+      "p": {
+        "radius": 4.5,
+        "depth": 14,
+        "z": -1,
+        "x": 64,
+        "y": 39,
+        "counterbore": 7.5,
+        "counterdepth": 5
+      },
+      "target": "mount1"
+    },
+    {
+      "id": "mount3",
+      "type": "hole",
+      "name": "Mounting hole 4",
+      "p": {
+        "radius": 4.5,
+        "depth": 14,
+        "z": -1,
+        "x": -64,
+        "y": 39,
+        "counterbore": 7.5,
+        "counterdepth": 5
+      },
+      "target": "mount2"
+    },
+    {
+      "id": "earProfile",
+      "type": "sketch",
+      "name": "Bearing support profile",
+      "p": {
+        "shape": "polygon",
+        "points": [
+          [
+            -38,
+            12
+          ],
+          [
+            38,
+            12
+          ],
+          [
+            38,
+            56
+          ],
+          [
+            37.674904732204794,
+            60.95999530436196
+          ],
+          [
+            36.70518139898459,
+            65.83512371389578
+          ],
+          [
+            35.1074222354289,
+            70.54197042987342
+          ],
+          [
+            32.908965343808674,
+            75
+          ],
+          [
+            30.147426931066935,
+            79.13293430233139
+          ],
+          [
+            26.870057685088806,
+            82.8700576850888
+          ],
+          [
+            23.132934302331385,
+            86.14742693106693
+          ],
+          [
+            19.000000000000004,
+            88.90896534380866
+          ],
+          [
+            14.541970429873414,
+            91.1074222354289
+          ],
+          [
+            9.835123713895788,
+            92.70518139898459
+          ],
+          [
+            4.959995304361965,
+            93.6749047322048
+          ],
+          [
+            2.326828918379971e-15,
+            94
+          ],
+          [
+            -4.959995304361953,
+            93.6749047322048
+          ],
+          [
+            -9.835123713895792,
+            92.70518139898459
+          ],
+          [
+            -14.541970429873409,
+            91.1074222354289
+          ],
+          [
+            -18.999999999999993,
+            88.90896534380867
+          ],
+          [
+            -23.132934302331385,
+            86.14742693106693
+          ],
+          [
+            -26.870057685088803,
+            82.87005768508881
+          ],
+          [
+            -30.14742693106693,
+            79.13293430233139
+          ],
+          [
+            -32.908965343808674,
+            75
+          ],
+          [
+            -35.1074222354289,
+            70.54197042987342
+          ],
+          [
+            -36.70518139898459,
+            65.8351237138958
+          ],
+          [
+            -37.674904732204794,
+            60.95999530436196
+          ],
+          [
+            -38,
+            56.00000000000001
+          ]
+        ],
+        "plane": "XZ",
+        "x": 0,
+        "y": 39,
+        "z": 0
+      }
+    },
+    {
+      "id": "earExtrude",
+      "type": "extrude",
+      "name": "Bearing carrier · front",
+      "p": {
+        "distance": 14
+      },
+      "profile": "earProfile",
+      "material": "orange"
+    },
+    {
+      "id": "earBore",
+      "type": "hole",
+      "name": "Bearing seat",
+      "p": {
+        "axis": "Y",
+        "x": 0,
+        "y": 24,
+        "z": 56,
+        "radius": "bore",
+        "depth": 16
+      },
+      "target": "earExtrude"
+    },
+    {
+      "id": "earRear",
+      "type": "pattern",
+      "name": "Rear bearing carrier",
+      "p": {
+        "axis": "Y",
+        "spacing": "-earSpacing",
+        "count": 2
+      },
+      "target": "earBore",
+      "material": "orange"
+    },
+    {
+      "id": "bearing",
+      "type": "cylinder",
+      "name": "Angular-contact bearing",
+      "p": {
+        "radius": "bore",
+        "height": 16,
+        "rx": 90,
+        "x": 0,
+        "y": 40,
+        "z": 56
+      },
+      "material": "steel"
+    },
+    {
+      "id": "bearingCut",
+      "type": "hole",
+      "name": "Bearing race",
+      "p": {
+        "axis": "Y",
+        "radius": 16,
+        "depth": 18,
+        "x": 0,
+        "y": 23,
+        "z": 56
+      },
+      "target": "bearing"
+    },
+    {
+      "id": "bearingRear",
+      "type": "pattern",
+      "name": "Rear bearing",
+      "p": {
+        "axis": "Y",
+        "spacing": "-earSpacing",
+        "count": 2
+      },
+      "target": "bearingCut",
+      "material": "steel"
+    },
+    {
+      "id": "shaft",
+      "type": "cylinder",
+      "name": "Precision hollow shaft",
+      "p": {
+        "radius": "shaftRadius",
+        "height": 108,
+        "rx": 90,
+        "x": 0,
+        "y": 54,
+        "z": 56
+      },
+      "material": "aluminum"
+    },
+    {
+      "id": "shaftBore",
+      "type": "hole",
+      "name": "Through shaft bore",
+      "p": {
+        "axis": "Y",
+        "radius": 8,
+        "depth": 110,
+        "x": 0,
+        "y": -55,
+        "z": 56
+      },
+      "target": "shaft"
+    },
+    {
+      "id": "collar",
+      "type": "cylinder",
+      "name": "Shaft locking collar",
+      "p": {
+        "radius": 19,
+        "height": 7,
+        "rx": 90,
+        "x": 0,
+        "y": 49,
+        "z": 56
+      },
+      "material": "dark"
+    },
+    {
+      "id": "collarCut",
+      "type": "hole",
+      "name": "Collar bore",
+      "p": {
+        "axis": "Y",
+        "radius": "shaftRadius + 0.2",
+        "depth": 9,
+        "x": 0,
+        "y": 41,
+        "z": 56
+      },
+      "target": "collar"
+    },
+    {
+      "id": "collarRear",
+      "type": "pattern",
+      "name": "Rear collar",
+      "p": {
+        "axis": "Y",
+        "spacing": -91,
+        "count": 2
+      },
+      "target": "collarCut",
+      "material": "dark"
+    },
+    {
+      "id": "screw0",
+      "type": "cylinder",
+      "name": "Socket screw 1",
+      "p": {
+        "radius": 6.6,
+        "height": 4.5,
+        "x": -64,
+        "y": -39,
+        "z": 8
+      },
+      "material": "steel"
+    },
+    {
+      "id": "socket0",
+      "type": "hole",
+      "name": "Hex socket 1",
+      "p": {
+        "radius": 2.8,
+        "depth": 3,
+        "x": -64,
+        "y": -39,
+        "z": 10
+      },
+      "target": "screw0"
+    },
+    {
+      "id": "screw1",
+      "type": "cylinder",
+      "name": "Socket screw 2",
+      "p": {
+        "radius": 6.6,
+        "height": 4.5,
+        "x": 64,
+        "y": -39,
+        "z": 8
+      },
+      "material": "steel"
+    },
+    {
+      "id": "socket1",
+      "type": "hole",
+      "name": "Hex socket 2",
+      "p": {
+        "radius": 2.8,
+        "depth": 3,
+        "x": 64,
+        "y": -39,
+        "z": 10
+      },
+      "target": "screw1"
+    },
+    {
+      "id": "screw2",
+      "type": "cylinder",
+      "name": "Socket screw 3",
+      "p": {
+        "radius": 6.6,
+        "height": 4.5,
+        "x": 64,
+        "y": 39,
+        "z": 8
+      },
+      "material": "steel"
+    },
+    {
+      "id": "socket2",
+      "type": "hole",
+      "name": "Hex socket 3",
+      "p": {
+        "radius": 2.8,
+        "depth": 3,
+        "x": 64,
+        "y": 39,
+        "z": 10
+      },
+      "target": "screw2"
+    },
+    {
+      "id": "screw3",
+      "type": "cylinder",
+      "name": "Socket screw 4",
+      "p": {
+        "radius": 6.6,
+        "height": 4.5,
+        "x": -64,
+        "y": 39,
+        "z": 8
+      },
+      "material": "steel"
+    },
+    {
+      "id": "socket3",
+      "type": "hole",
+      "name": "Hex socket 4",
+      "p": {
+        "radius": 2.8,
+        "depth": 3,
+        "x": -64,
+        "y": 39,
+        "z": 10
+      },
+      "target": "screw3"
+    }
+  ],
+  "appearances": {},
+  "hidden": [],
+  "rollback": null
+}

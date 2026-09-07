@@ -1,0 +1,136 @@
+{
+  "format": "alloy-studio",
+  "version": 1,
+  "name": "Precision flange",
+  "units": "mm",
+  "parameters": {
+    "diameter": 100,
+    "thickness": 12,
+    "bore": 14
+  },
+  "features": [
+    {
+      "id": "plate",
+      "type": "cylinder",
+      "name": "Flange",
+      "material": "aluminum",
+      "p": {
+        "radius": "diameter / 2",
+        "height": "thickness"
+      }
+    },
+    {
+      "id": "hub",
+      "type": "cylinder",
+      "name": "Hub",
+      "material": "aluminum",
+      "p": {
+        "radius": 27,
+        "height": 26,
+        "z": 10
+      }
+    },
+    {
+      "id": "join",
+      "type": "boolean",
+      "name": "Join hub",
+      "target": "plate",
+      "tool": "hub",
+      "p": {
+        "operation": "union"
+      }
+    },
+    {
+      "id": "bolt0",
+      "type": "hole",
+      "name": "Bolt hole 1",
+      "target": "join",
+      "p": {
+        "radius": 4.2,
+        "depth": 14,
+        "z": -1,
+        "x": 37,
+        "y": 0
+      }
+    },
+    {
+      "id": "bolt1",
+      "type": "hole",
+      "name": "Bolt hole 2",
+      "target": "bolt0",
+      "p": {
+        "radius": 4.2,
+        "depth": 14,
+        "z": -1,
+        "x": 18.500000000000004,
+        "y": 32.042939940024226
+      }
+    },
+    {
+      "id": "bolt2",
+      "type": "hole",
+      "name": "Bolt hole 3",
+      "target": "bolt1",
+      "p": {
+        "radius": 4.2,
+        "depth": 14,
+        "z": -1,
+        "x": -18.499999999999993,
+        "y": 32.04293994002423
+      }
+    },
+    {
+      "id": "bolt3",
+      "type": "hole",
+      "name": "Bolt hole 4",
+      "target": "bolt2",
+      "p": {
+        "radius": 4.2,
+        "depth": 14,
+        "z": -1,
+        "x": -37,
+        "y": 4.531193156845207e-15
+      }
+    },
+    {
+      "id": "bolt4",
+      "type": "hole",
+      "name": "Bolt hole 5",
+      "target": "bolt3",
+      "p": {
+        "radius": 4.2,
+        "depth": 14,
+        "z": -1,
+        "x": -18.500000000000018,
+        "y": -32.042939940024226
+      }
+    },
+    {
+      "id": "bolt5",
+      "type": "hole",
+      "name": "Bolt hole 6",
+      "target": "bolt4",
+      "p": {
+        "radius": 4.2,
+        "depth": 14,
+        "z": -1,
+        "x": 18.500000000000004,
+        "y": -32.042939940024226
+      }
+    },
+    {
+      "id": "bore",
+      "type": "hole",
+      "name": "Central bore",
+      "target": "bolt5",
+      "p": {
+        "radius": "bore",
+        "depth": 38,
+        "z": -1
+      }
+    }
+  ],
+  "appearances": {},
+  "hidden": [],
+  "rollback": null
+}

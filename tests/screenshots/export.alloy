@@ -1,0 +1,54 @@
+{
+  "format": "alloy-studio",
+  "version": 1,
+  "name": "Sketch workflow test",
+  "units": "mm",
+  "features": [
+    {
+      "id": "sk_x9qkk95e",
+      "type": "sketch",
+      "name": "Sketch 1",
+      "p": {
+        "shape": "rectangle",
+        "width": 40,
+        "height": 30,
+        "radius": 0,
+        "x": -7.5,
+        "y": 0,
+        "z": 0,
+        "plane": "XY"
+      }
+    },
+    {
+      "id": "f_h96h55sl",
+      "type": "extrude",
+      "name": "Extrude",
+      "p": {
+        "distance": "10"
+      },
+      "material": "aluminum",
+      "profile": "sk_x9qkk95e"
+    },
+    {
+      "id": "f_bn5812zv",
+      "type": "hole",
+      "name": "Hole",
+      "p": {
+        "radius": "3",
+        "depth": "12",
+        "counterbore": "0",
+        "counterdepth": "0",
+        "axis": "Z",
+        "x": "-7.5",
+        "y": "0",
+        "z": "-1"
+      },
+      "target": "f_h96h55sl"
+    }
+  ],
+  "parameters": {},
+  "appearances": {},
+  "hidden": [],
+  "rollback": null,
+  "names": {}
+}

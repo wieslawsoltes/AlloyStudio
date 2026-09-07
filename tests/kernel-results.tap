@@ -1,0 +1,165 @@
+
+> alloy-studio@0.1.0 test
+> node --test tests/*.test.js
+
+TAP version 13
+# Demo: 12 bodies, 23232 triangles, 716 ms cold, 0.2 ms cached
+# Subtest: cube signed volume and surface area
+ok 1 - cube signed volume and surface area
+  ---
+  duration_ms: 1.836123
+  type: 'test'
+  ...
+# Subtest: rounded rectangle is CCW with valid outward normals
+ok 2 - rounded rectangle is CCW with valid outward normals
+  ---
+  duration_ms: 1.868771
+  type: 'test'
+  ...
+# Subtest: Boolean union, intersection, difference volumes
+ok 3 - Boolean union, intersection, difference volumes
+  ---
+  duration_ms: 2.82222
+  type: 'test'
+  ...
+# Subtest: disjoint and identical Boolean operands
+ok 4 - disjoint and identical Boolean operands
+  ---
+  duration_ms: 1.997001
+  type: 'test'
+  ...
+# Subtest: through hole removes material
+ok 5 - through hole removes material
+  ---
+  duration_ms: 14.236515
+  type: 'test'
+  ...
+# Subtest: concave polygon extrusion and negative distance
+ok 6 - concave polygon extrusion and negative distance
+  ---
+  duration_ms: 0.435654
+  type: 'test'
+  ...
+# Subtest: triangulation rejects zero-area profiles
+ok 7 - triangulation rejects zero-area profiles
+  ---
+  duration_ms: 0.377448
+  type: 'test'
+  ...
+# Subtest: cylinder, sphere, torus outward volume
+ok 8 - cylinder, sphere, torus outward volume
+  ---
+  duration_ms: 18.230407
+  type: 'test'
+  ...
+# Subtest: full and partial revolution closed volumes
+ok 9 - full and partial revolution closed volumes
+  ---
+  duration_ms: 3.631366
+  type: 'test'
+  ...
+# Subtest: BVH returns closest surface
+ok 10 - BVH returns closest surface
+  ---
+  duration_ms: 2.742493
+  type: 'test'
+  ...
+# Subtest: binary STL round trip
+ok 11 - binary STL round trip
+  ---
+  duration_ms: 1.581987
+  type: 'test'
+  ...
+# Subtest: OBJ round trip
+ok 12 - OBJ round trip
+  ---
+  duration_ms: 1.735885
+  type: 'test'
+  ...
+# Subtest: safe expression precedence, units and parameter dependencies
+ok 13 - safe expression precedence, units and parameter dependencies
+  ---
+  duration_ms: 1.770356
+  type: 'test'
+  ...
+# Subtest: invalid expressions and cycles are rejected
+ok 14 - invalid expressions and cycles are rejected
+  ---
+  duration_ms: 0.257069
+  type: 'test'
+  ...
+# Subtest: feature regeneration and downstream dependencies
+ok 15 - feature regeneration and downstream dependencies
+  ---
+  duration_ms: 29.701696
+  type: 'test'
+  ...
+# Subtest: history undo and redo are isolated snapshots
+ok 16 - history undo and redo are isolated snapshots
+  ---
+  duration_ms: 0.320814
+  type: 'test'
+  ...
+# Subtest: schema rejects duplicate IDs and non-finite mesh geometry
+ok 17 - schema rejects duplicate IDs and non-finite mesh geometry
+  ---
+  duration_ms: 0.473259
+  type: 'test'
+  ...
+# Subtest: demo regenerates without errors and produces real mesh bodies
+ok 18 - demo regenerates without errors and produces real mesh bodies
+  ---
+  duration_ms: 717.151266
+  type: 'test'
+  ...
+# Subtest: non-finite imported vertices are rejected before evaluation
+ok 19 - non-finite imported vertices are rejected before evaluation
+  ---
+  duration_ms: 0.454191
+  type: 'test'
+  ...
+# Subtest: untrusted identifiers, materials, metadata and units are rejected
+ok 20 - untrusted identifiers, materials, metadata and units are rejected
+  ---
+  duration_ms: 0.536232
+  type: 'test'
+  ...
+# Subtest: long dependency chains have bounded revision keys and hit the cache
+ok 21 - long dependency chains have bounded revision keys and hit the cache
+  ---
+  duration_ms: 7.784983
+  type: 'test'
+  ...
+# Subtest: suppression passes a modification input through, including on cache hits
+ok 22 - suppression passes a modification input through, including on cache hits
+  ---
+  duration_ms: 4.83888
+  type: 'test'
+  ...
+# Subtest: history rollback and replay preserve reference results
+ok 23 - history rollback and replay preserve reference results
+  ---
+  duration_ms: 0.434352
+  type: 'test'
+  ...
+# Subtest: circular patterns rotate copies about world Z
+ok 24 - circular patterns rotate copies about world Z
+  ---
+  duration_ms: 0.561209
+  type: 'test'
+  ...
+# Subtest: section-aware picking rejects clipped front hits and finds the retained back surface
+ok 25 - section-aware picking rejects clipped front hits and finds the retained back surface
+  ---
+  duration_ms: 0.403787
+  type: 'test'
+  ...
+1..25
+# tests 25
+# suites 0
+# pass 25
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 905.214508

@@ -1,0 +1,16 @@
+{
+  "name": "Alloy Studio",
+  "version": "0.1.0",
+  "releaseDate": "2026-09-06",
+  "runtimeDependencies": [],
+  "kernelTestsPassed": 25,
+  "browserChecksPassed": 30,
+  "browserTestBackend": "WebGL2 / ANGLE SwiftShader software",
+  "webGPURuntimeValidated": false,
+  "indexedDBSuccessPathValidated": false,
+  "demoFeatures": 25,
+  "demoBodies": 12,
+  "demoTriangles": 23232,
+  "kernel": "Tessellated polygonal BSP; not analytic B-rep",
+  "standaloneBytes": 204983
+}

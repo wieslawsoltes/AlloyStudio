@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#263d49"><meta name="description" content="Alloy Studio — browser-native parametric modeling with a real WebGPU viewport.">
+<title>Alloy Studio — Orbital bearing mount</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23243e48'/%3E%3Cpath d='M17 46 30 15h8l13 31H40l-6-16-7 16z' fill='%23e9a46c'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="./src/style.css">
+</head>
+<body>
+<div id="app">
+<header class="topbar">
+  <button class="brand" data-command="about" title="About Alloy Studio"><span class="brandmark">A</span><span>alloy<span class="brand-sub">STUDIO</span></span></button>
+  <div class="top-divider"></div>
+  <button class="text-button" id="file-menu">File <span class="chevron">⌄</span></button>
+  <button class="icon-button" data-command="save" data-icon="save" title="Save project · Ctrl/⌘ S"></button>
+  <button class="icon-button" id="undo-button" data-command="undo" data-icon="undo" title="Undo · Ctrl/⌘ Z"></button>
+  <button class="icon-button" id="redo-button" data-command="redo" data-icon="redo" title="Redo · Ctrl/⌘ Shift Z"></button>
+  <span class="document-title" id="title">Orbital bearing mount <span class="version-label">v1</span></span>
+  <span class="save-state" id="save-state"><i></i> Local workspace</span>
+  <button class="icon-button" data-command="help" data-icon="help" title="Keyboard shortcuts and help"></button>
+  <button class="avatar" data-command="about" title="Local workspace — no account required">WS</button>
+</header>
+<div class="document-bar">
+  <button class="grid-button icon-button" data-command="projects" data-icon="grid" title="Design library"></button>
+  <div class="document-tab"><span data-icon="cube"></span><span id="tab-title">Orbital bearing mount</span><span class="tab-dot"></span></div>
+  <button class="icon-button new-tab" data-command="new" data-icon="plus" title="New design"></button>
+  <div class="document-bar-spacer"></div>
+  <button class="command-trigger" data-command="search"><span data-icon="search"></span><span>Search commands</span><kbd>⌘ K</kbd></button>
+</div>
+<div class="ribbon-shell">
+  <button class="workspace-button" id="workspace-menu"><span class="workspace-icon" data-icon="design"></span><strong id="workspace-label">DESIGN</strong><span>⌄</span></button>
+  <div class="ribbon-main"><nav class="mode-tabs" id="mode-tabs"><button class="active" data-tab="solid">SOLID</button><button data-tab="sketch">SKETCH</button><button data-tab="mesh">MESH</button><button data-tab="inspect">INSPECT</button><button data-tab="view">VIEW</button></nav><div class="ribbon" id="ribbon"></div></div>
+</div>
+<main class="main-area">
+  <aside class="browser" id="browser">
+    <div class="pane-heading"><span>BROWSER</span><button class="icon-button small" data-command="collapse-browser" data-icon="panel-left" title="Collapse browser"></button></div>
+    <div class="browser-search"><span data-icon="search"></span><input id="browser-filter" placeholder="Find in design" aria-label="Find in design"><kbd>/</kbd></div>
+    <div id="browser-tree"></div>
+    <div class="browser-bottom"><div class="local-label"><span data-icon="shield"></span> Your design stays on this device</div><button class="sample-card" data-command="projects"><span class="sample-icon" data-icon="library"></span><span><strong>Design library</strong><small>Start with something good.</small></span><span>↗</span></button></div>
+  </aside>
+  <section class="stage" id="stage" aria-label="3D modeling viewport" tabindex="0">
+    <canvas id="viewport"></canvas><canvas id="overlay"></canvas>
+    <div class="viewport-top-left"><button class="view-label" data-command="view-options"><span class="view-dot"></span><span id="view-label">Perspective · orthographic</span><span>⌄</span></button><span class="viewport-caption" id="viewport-caption">ORBITAL / MECHANICAL ASSEMBLY</span></div>
+    <div class="viewcube-area"><button class="cube-home icon-button" data-command="home" data-icon="home" title="Home view"></button><svg id="viewcube" viewBox="0 0 124 120" aria-label="View cube"><g stroke="#acb7c0" stroke-width="1"><path data-view="top" d="M62 13 109 38 62 64 15 38Z" fill="#fdfefe"/><path data-view="front" d="M15 38 62 64 62 112 15 86Z" fill="#e4e9ed"/><path data-view="right" d="M62 64 109 38 109 86 62 112Z" fill="#f1f4f6"/></g><g fill="#60717d" font-family="Arial,sans-serif" font-size="11" text-anchor="middle" pointer-events="none"><text x="62" y="42">TOP</text><text transform="translate(37 79) rotate(29)">FRONT</text><text transform="translate(86 79) rotate(-29)">RIGHT</text></g></svg><div class="cube-label"><button data-view="front">FRONT</button><span>•</span><button data-view="iso">HOME</button></div></div>
+    <button class="collapsed-browser icon-button" data-command="collapse-browser" data-icon="panel-left" title="Show browser"></button>
+    <div class="model-badge" id="model-badge"><span class="badge-icon" data-icon="link"></span><div><strong>Parametric design</strong><span id="model-summary">Regenerating geometry…</span></div></div>
+    <div class="navigation" id="navigation"><button data-command="orbit" data-icon="orbit" title="Orbit · right-drag"></button><button data-command="pan" data-icon="hand" title="Pan · middle-drag"></button><button data-command="fit" data-icon="fit" title="Fit to view · F"></button><span></span><button data-command="view-options" data-icon="display" title="Display settings"></button><button data-command="grid" data-icon="grid" title="Toggle layout grid · G"></button><button data-command="projection" data-icon="cube" title="Perspective / orthographic · P"></button><span></span><button data-command="section" data-icon="section" title="Section analysis"></button></div>
+    <div class="axis-triad" id="axis-triad"></div>
+    <div class="viewport-loading" id="loading"><div class="spinner"></div><span>Building your design</span><small>Double-precision geometry · GPU rendering</small></div>
+    <div class="sketch-footer hidden" id="sketch-footer"><span class="sketch-live-dot"></span><strong>Sketch mode</strong><span id="sketch-hint">Drag to draw a rectangle</span><button class="primary-button" data-command="finish-sketch">Finish sketch <span>✓</span></button></div>
+    <div class="selection-hint hidden" id="selection-hint"></div>
+  </section>
+  <aside class="inspector hidden" id="inspector"></aside>
+</main>
+<footer class="timeline-area"><div class="timeline-controls"><button data-command="history-start" data-icon="skip-back" title="Roll back to first feature"></button><button data-command="history-prev" data-icon="back" title="Previous feature"></button><button data-command="history-next" data-icon="forward" title="Next feature"></button><button data-command="history-end" data-icon="skip-forward" title="Restore full history"></button></div><div class="timeline-main"><div class="timeline-label"><span>DESIGN HISTORY</span><span id="history-caption">Feature-based modeling</span></div><div class="timeline-track" id="timeline"></div></div><button class="timeline-settings icon-button" data-command="parameters" data-icon="parameters" title="User parameters"></button></footer>
+<div class="statusbar"><span id="status-help">Select a body to inspect · Right-drag to orbit · Scroll to zoom</span><span class="status-spacer"></span><span id="mesh-stats">—</span><span class="status-separator"></span><button id="engine-badge" data-command="diagnostics"><i></i> Initializing</button><span class="status-separator"></span><button data-command="parameters">mm</button></div>
+</div>
+<div id="toast-region" aria-live="polite"></div><div id="menu-layer"></div><div id="modal-layer"></div>
+<input type="file" id="file-input" accept=".alloy,.json,.stl,.obj" hidden>
+<script type="module" src="./src/app.js"></script>
+</body>
+</html>
